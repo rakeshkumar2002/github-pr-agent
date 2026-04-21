@@ -1,5 +1,6 @@
 import requests, os
 
+# github api url
 BASE = "https://api.github.com"
 
 def _headers():
@@ -26,6 +27,11 @@ def get_diff(owner, repo, pr_number):
     return res.text[:8000]  # trim large diffs
 
 def post_comment(owner, repo, pr_number, comment):
+    print(f"\n📝 Proposed comment on PR #{pr_number}:\n")
+    print(comment)
+    confirm = input("\nPost this? (y/n): ")
+    if confirm.lower() != "y":
+        return {"status": "skipped", "message": "User declined to post"}
     res = requests.post(
         f"{BASE}/repos/{owner}/{repo}/issues/{pr_number}/comments",
         headers=_headers(),
