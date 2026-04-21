@@ -1,6 +1,5 @@
 import requests, os
 
-# github api url
 BASE = "https://api.github.com"
 
 def _headers():
